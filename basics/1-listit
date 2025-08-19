@@ -1,6 +1,2 @@
 #!/bin/bash
-ls -m
-$ ./1-listit
-Applications    Documents   Dropbox Movies Pictures
-Desktop Downloads   Library Music Public
-$
+ls -l
