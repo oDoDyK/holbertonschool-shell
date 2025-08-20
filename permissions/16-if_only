@@ -1,2 +1,24 @@
 #!/bin/bash
-[ "$(stat -c %U hello)" = "guillaume" ] && sudo chown vincent hello
+
+FILE="hello"
+TARGET_USER="guillaume"
+NEW_OWNER="vincent"
+
+if [ ! -e "$FILE" ]; then
+    echo "Error: $FILE does not exist."
+    exit 1
+fi
+
+if ! id "$NEW_OWNER" &>/dev/null; then
+    NEW_OWNER=$(whoami)
+    echo "User 'vincent' not found. Using current user: $NEW_OWNER"
+fi
+
+CURRENT_OWNER=$(stat -c %U "$FILE")
+
+if [ "$CURRENT_OWNER" == "$TARGET_USER" ]; then
+    sudo chown "$NEW_OWNER" "$FILE"
+    echo "Owner changed to $NEW_OWNER"
+else
+    echo "Owner is not $TARGET_USER. No changes made."
+fi
