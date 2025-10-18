@@ -1,0 +1,4 @@
+#!/bin/bash
+# This script finds all empty files and directories in the current directory and subdirectories
+
+find . -empty -printf "%f\n"
